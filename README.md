@@ -6,65 +6,67 @@
 
 ## 📌 About the Project
 
-ResumeScore AI is an intelligent resume-screening application that compares resumes with domain-specific job descriptions using Natural Language Processing and Sentence Transformers.
+ResumeScore AI is an AI-powered resume screening application that evaluates resumes against domain-specific job descriptions using Natural Language Processing (NLP) and Sentence Transformers.
 
-The application extracts text from PDF resumes, cleans the content, generates semantic embeddings, and calculates cosine similarity to produce an AI-based resume score.
+The application extracts text from PDF resumes, preprocesses the content, generates semantic embeddings, and computes cosine similarity to produce intelligent resume scores and skill-matching insights.
 
 ---
 
 ## 🚀 Features
 
 - Upload resumes in PDF format
-- Automatic resume-text extraction
+- Automatic resume text extraction
 - Resume cleaning and preprocessing
-- Domain-specific job matching
-- Semantic comparison using Sentence Transformers
-- Cosine-similarity-based resume scoring
-- Skill matching and missing-skill identification
-- Flask-based web interface
+- Domain-specific resume evaluation
+- Semantic similarity using Sentence Transformers
+- AI-powered resume scoring
+- Skill matching and missing skill identification
+- Interactive Flask web interface
 
 ---
 
-## 🎥 Demo
+## 📸 Application Preview
 
-![ResumeScore AI Demo](screenshots/demo.gif)
+### 🎥 Demo
+
+![Application Demo](screenshots/Demo.gif)
 
 ---
 
-## 📸 Screenshots
-
-### Home Page
+### 🏠 Home Page
 
 ![Home Page](screenshots/home.png)
 
-### Resume Upload
+---
 
-![Resume Upload](screenshots/upload.png)
-
-### Domain Selection
+### 📂 Domain Selection
 
 ![Domain Selection](screenshots/domain.png)
 
-### Analysis Result
+---
 
-![Analysis Result](screenshots/result.png)
-
-### Resume Score
+### 📊 Resume Score
 
 ![Resume Score](screenshots/score.png)
 
 ---
 
-## 🛠️ Tech Stack
+### 📈 Analysis Result
+
+![Analysis Result](screenshots/result.png)
+
+---
+
+## 🛠 Tech Stack
 
 | Category | Technologies |
-|---|---|
+|----------|--------------|
 | Programming Language | Python |
 | Web Framework | Flask |
-| NLP Model | Sentence Transformers |
-| Similarity Method | Cosine Similarity |
+| NLP | Sentence Transformers |
+| Similarity Metric | Cosine Similarity |
 | Data Processing | Pandas |
-| PDF Extraction | pdfplumber |
+| PDF Processing | pdfplumber |
 | Frontend | HTML, CSS |
 
 ---
@@ -73,20 +75,30 @@ The application extracts text from PDF resumes, cleans the content, generates se
 
 ```text
 Resume PDF
-    ↓
-Text Extraction
-    ↓
-Text Cleaning and Preprocessing
-    ↓
-Domain Requirement Selection
-    ↓
-Sentence Transformer Embeddings
-    ↓
-Cosine Similarity Calculation
-    ↓
+      │
+      ▼
+Extract Resume Text
+      │
+      ▼
+Clean & Preprocess Text
+      │
+      ▼
+Select Target Domain
+      │
+      ▼
+Generate Sentence Embeddings
+      │
+      ▼
+Calculate Cosine Similarity
+      │
+      ▼
 Skill Matching
-    ↓
-Resume Score and Analysis
+      │
+      ▼
+Generate Resume Score
+      │
+      ▼
+Display Final Analysis
 ```
 
 ---
@@ -120,42 +132,41 @@ ResumeScore-AI/
 │
 └── screenshots/
     ├── home.png
-    ├── upload.png
     ├── domain.png
     ├── result.png
     ├── score.png
-    └── demo.gif
+    └── Demo.gif
 ```
 
 ---
 
-## ⚙️ Installation
+## ⚙ Installation
 
-### 1. Clone the repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/Thanesh16/ResumeScore-AI.git
 ```
 
-### 2. Open the project folder
+### Navigate to the project
 
 ```bash
 cd ResumeScore-AI
 ```
 
-### 3. Install the required dependencies
+### Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the Flask application
+### Run the application
 
 ```bash
 python app.py
 ```
 
-### 5. Open the application in your browser
+### Open in your browser
 
 ```text
 http://127.0.0.1:5000
@@ -166,11 +177,11 @@ http://127.0.0.1:5000
 ## 🔮 Future Enhancements
 
 - ATS compatibility analysis
-- Improved required-skills matching
-- Resume improvement suggestions
-- Multiple-resume ranking
+- Enhanced skill matching
+- Resume improvement recommendations
+- Multiple resume ranking
 - Detailed skill-gap analysis
-- LLM-based resume feedback
+- LLM-powered resume feedback
 - Cloud deployment
 
 ---
@@ -181,8 +192,10 @@ http://127.0.0.1:5000
 
 Aspiring Data Scientist
 
-[GitHub](https://github.com/Thanesh16) • [LinkedIn](https://linkedin.com/in/thanesh006)
+GitHub: https://github.com/Thanesh16
+
+LinkedIn: https://linkedin.com/in/thanesh006
 
 ---
 
-⭐ If you found this project useful, consider starring the repository.
+⭐ If you found this project useful, consider giving it a star.
