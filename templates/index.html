@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ResumeScore AI</title>
+
+  <!-- CSS FILE FROM STATIC FOLDER -->
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+  >
+</head>
+
+
+<body>
+
+  <!-- =========================
+       NAVIGATION BAR
+  ========================== -->
+
+  <header class="navbar">
+
+    <div class="logo">
+      ResumeScore AI
+    </div>
+
+    <nav>
+      <a href="#analyzer">
+        Check Score
+      </a>
+    </nav>
+
+  </header>
+
+
+  <!-- =========================
+       HERO SECTION
+  ========================== -->
+
+  <main class="hero">
+
+    <section class="hero-content">
+
+      <p class="small-heading">
+        Smart Resume Analysis
+      </p>
+
+      <h1>
+        Check how well your resume matches your target domain.
+      </h1>
+
+      <p class="description">
+        Select your preferred career domain, upload your PDF resume,
+        and get an instant match score with skill insights.
+      </p>
+
+      <a
+        href="#analyzer"
+        class="primary-button"
+      >
+        Check My Resume
+      </a>
+
+    </section>
+
+
+    <!-- HERO PREVIEW CARD -->
+
+    <section class="preview-card">
+
+      <div class="preview-title">
+
+        <span>
+          Overall Match
+        </span>
+
+        <strong id="preview-score">
+
+          {% if overall_score is defined %}
+            {{ overall_score }}%
+          {% else %}
+            --%
+          {% endif %}
+
+        </strong>
+
+      </div>
+
+
+      <div class="progress-bar">
+
+        <div
+          class="progress-value"
+          id="preview-progress"
+
+          {% if overall_score is defined %}
+            style="width: {{ overall_score }}%;"
+          {% else %}
+            style="width: 0%;"
+          {% endif %}
+        >
+        </div>
+
+      </div>
+
+
+      <div
+        class="preview-result"
+        id="preview-result"
+      >
+
+        {% if overall_score is defined %}
+
+          <div>
+
+            <p>
+              <strong>
+                {% if overall_score < 50 %}
+                  Needs Improvement
+
+                {% elif overall_score <= 65 %}
+                  Average Match
+
+                {% elif overall_score <= 70 %}
+                  Good Match
+
+                {% elif overall_score <= 85 %}
+                  Strong Match
+
+                {% elif overall_score <= 90 %}
+                  Excellent Match
+
+                {% else %}
+                  Outstanding Match
+                {% endif %}
+              </strong>
+            </p>
+
+            {% if selected_domain is defined %}
+              <p>
+                Selected Domain: {{ selected_domain }}
+              </p>
+            {% endif %}
+
+          </div>
+
+        {% else %}
+
+          <p>
+            Resume analysis result will appear here.
+          </p>
+
+        {% endif %}
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       RESUME UPLOAD SECTION
+  ========================== -->
+
+  <section
+    class="analyzer-section"
+    id="analyzer"
+  >
+
+    <div class="section-heading">
+
+      <p class="small-heading">
+        Resume Scorer
+      </p>
+
+      <h2>
+        Analyze Your Resume
+      </h2>
+
+      <p>
+        Choose your target domain and upload your resume in PDF format.
+      </p>
+
+    </div>
+
+
+    <div class="analyzer-card">
+
+      <!--
+        This form sends:
+        1. Selected domain
+        2. Uploaded resume
+
+        To the Flask function:
+
+        def analyze():
+      -->
+
+      <form
+        action="{{ url_for('analyze') }}#results"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+
+        <!-- DOMAIN INPUT -->
+
+        <div class="form-group">
+
+          <label for="domain">
+            Select Your Target Domain
+          </label>
+
+          <!--
+            The option values below must exactly match
+            the Domain column in Requirement.csv.
+          -->
+
+          <select
+            id="domain"
+            name="domain"
+            required
+          >
+
+            <option value="">
+              Choose a domain
+            </option>
+
+
+            <option
+              value="Data Scientist"
+
+              {% if selected_domain is defined
+                    and selected_domain == "Data Scientist" %}
+                selected
+              {% endif %}
+            >
+              Data Scientist
+            </option>
+
+
+            <option
+              value="Data Analyst"
+
+              {% if selected_domain is defined
+                    and selected_domain == "Data Analyst" %}
+                selected
+              {% endif %}
+            >
+              Data Analyst
+            </option>
+
+
+            <option
+              value="Front-End Developer"
+
+              {% if selected_domain is defined
+                    and selected_domain == "Front-End Developer" %}
+                selected
+              {% endif %}
+            >
+              Front-End Developer
+            </option>
+
+
+            <option
+              value="Full Stack Developer"
+
+              {% if selected_domain is defined
+                    and selected_domain == "Full Stack Developer" %}
+                selected
+              {% endif %}
+            >
+              Full Stack Developer
+            </option>
+
+
+            <option
+              value="Python Developer"
+
+              {% if selected_domain is defined
+                    and selected_domain == "Python Developer" %}
+                selected
+              {% endif %}
+            >
+              Python Developer
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- RESUME FILE INPUT -->
+
+        <div class="form-group">
+
+          <label for="resume">
+            Upload Resume
+          </label>
+
+          <div class="upload-box">
+
+            <!--
+              Flask receives this using:
+
+              request.files["resume"]
+            -->
+
+            <input
+              type="file"
+              id="resume"
+              name="resume"
+              accept=".pdf"
+              required
+            >
+
+            <div class="upload-icon">
+              📄
+            </div>
+
+            <h3>
+              Upload Your PDF Resume
+            </h3>
+
+            <p>
+              Click here to choose your resume
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="primary-button full-button"
+        >
+          Analyze Resume
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       RESULT SECTION
+  ========================== -->
+
+  <section
+    class="result-section"
+    id="results"
+  >
+
+    <div class="section-heading">
+
+      <p class="small-heading">
+        Analysis Result
+      </p>
+
+      <h2>
+        Your Resume Result
+      </h2>
+
+      <p>
+        Review your resume match, skill coverage, missing skills,
+        and overall recommendation.
+      </p>
+
+    </div>
+
+
+    <!-- =========================
+         THREE SCORE BARS
+    ========================== -->
+
+    <div class="score-panel">
+
+
+      <!-- RESUME MATCH SCORE -->
+
+      <div class="score-row">
+
+        <div class="score-row-top">
+
+          <div>
+
+            <p class="card-kicker">
+              Content Match
+            </p>
+
+            <h3>
+              Resume Match Score
+            </h3>
+
+          </div>
+
+
+          <!-- Flask inserts resume_score here -->
+
+          <strong id="resume-score">
+
+            {% if resume_score is defined %}
+              {{ resume_score }}%
+            {% else %}
+              --%
+            {% endif %}
+
+          </strong>
+
+        </div>
+
+
+        <div class="score-progress">
+
+          <!-- Flask controls the width using resume_score -->
+
+          <div
+            class="score-progress-value"
+            id="resume-score-progress"
+
+            {% if resume_score is defined %}
+              style="width: {{ resume_score }}%;"
+            {% else %}
+              style="width: 0%;"
+            {% endif %}
+          >
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SKILL MATCH SCORE -->
+
+      <div class="score-row">
+
+        <div class="score-row-top">
+
+          <div>
+
+            <p class="card-kicker">
+              Skill Coverage
+            </p>
+
+            <h3>
+              Skill Match Score
+            </h3>
+
+          </div>
+
+
+          <!-- Flask inserts skill_score here -->
+
+          <strong id="skill-score">
+
+            {% if skill_score is defined %}
+              {{ skill_score }}%
+            {% else %}
+              --%
+            {% endif %}
+
+          </strong>
+
+        </div>
+
+
+        <div class="score-progress">
+
+          <!-- Flask controls the width using skill_score -->
+
+          <div
+            class="score-progress-value"
+            id="skill-score-progress"
+
+            {% if skill_score is defined %}
+              style="width: {{ skill_score }}%;"
+            {% else %}
+              style="width: 0%;"
+            {% endif %}
+          >
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- OVERALL SCORE -->
+
+      <div class="score-row overall-score-row">
+
+        <div class="score-row-top">
+
+          <div>
+
+            <p class="card-kicker">
+              Final Result
+            </p>
+
+            <h3>
+              Overall Score
+            </h3>
+
+          </div>
+
+
+          <!-- Flask inserts overall_score here -->
+
+          <strong id="overall-score">
+
+            {% if overall_score is defined %}
+              {{ overall_score }}%
+            {% else %}
+              --%
+            {% endif %}
+
+          </strong>
+
+        </div>
+
+
+        <div class="score-progress overall-progress">
+
+          <!-- Flask controls the width using overall_score -->
+
+          <div
+            class="score-progress-value"
+            id="overall-score-progress"
+
+            {% if overall_score is defined %}
+              style="width: {{ overall_score }}%;"
+            {% else %}
+              style="width: 0%;"
+            {% endif %}
+          >
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         SKILL RESULTS
+    ========================== -->
+
+    <div class="skills-grid">
+
+
+      <!-- MATCHED SKILLS -->
+
+      <article class="result-card skills-card matched-card">
+
+        <div class="skills-heading">
+
+          <div>
+
+            <p class="card-kicker">
+              Strengths
+            </p>
+
+            <h3>
+              Matched Skills
+            </h3>
+
+          </div>
+
+          <span class="skills-icon">
+            ✓
+          </span>
+
+        </div>
+
+
+        <div
+          class="skills-output"
+          id="matched-skills"
+        >
+
+          <!--
+            Flask sends:
+
+            matched_skills=Matched_skills
+          -->
+
+          {% if matched_skills is defined %}
+
+            {% if matched_skills %}
+
+              {% for skill in matched_skills %}
+
+                <span class="skill-tag matched">
+                  ✓ {{ skill }}
+                </span>
+
+              {% endfor %}
+
+            {% else %}
+
+              <p class="placeholder-text">
+                No required skills were detected in the resume.
+              </p>
+
+            {% endif %}
+
+          {% else %}
+
+            <p class="placeholder-text">
+              Matched skills will appear here.
+            </p>
+
+          {% endif %}
+
+        </div>
+
+      </article>
+
+
+      <!-- MISSING SKILLS -->
+
+      <article class="result-card skills-card missing-card">
+
+        <div class="skills-heading">
+
+          <div>
+
+            <p class="card-kicker">
+              Improvement Areas
+            </p>
+
+            <h3>
+              Missing Skills
+            </h3>
+
+          </div>
+
+          <span class="skills-icon">
+            !
+          </span>
+
+        </div>
+
+
+        <div
+          class="skills-output"
+          id="missing-skills"
+        >
+
+          <!--
+            Flask sends:
+
+            missing_skills=UnMatched_skills
+          -->
+
+          {% if missing_skills is defined %}
+
+            {% if missing_skills %}
+
+              {% for skill in missing_skills %}
+
+                <span class="skill-tag missing">
+                  ✕ {{ skill }}
+                </span>
+
+              {% endfor %}
+
+            {% else %}
+
+              <p class="placeholder-text">
+                Excellent! No required skills are missing.
+              </p>
+
+            {% endif %}
+
+          {% else %}
+
+            <p class="placeholder-text">
+              Missing skills will appear here.
+            </p>
+
+          {% endif %}
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- =========================
+         RECOMMENDATION
+    ========================== -->
+
+    <article class="recommendation-card">
+
+      <div class="recommendation-top">
+
+        <div>
+
+          <p class="card-kicker">
+            Personalized Review
+          </p>
+
+
+          <h3 id="recommendation-title">
+
+            {% if overall_score is defined %}
+
+              {% if overall_score < 50 %}
+                Needs Improvement
+
+              {% elif overall_score <= 65 %}
+                Average Match
+
+              {% elif overall_score <= 70 %}
+                Good Match
+
+              {% elif overall_score <= 85 %}
+                Strong Match
+
+              {% elif overall_score <= 90 %}
+                Excellent Match
+
+              {% else %}
+                Outstanding Match
+              {% endif %}
+
+            {% else %}
+
+              Recommendation
+
+            {% endif %}
+
+          </h3>
+
+        </div>
+
+
+        <span
+          class="recommendation-badge"
+          id="recommendation-status"
+        >
+
+          {% if overall_score is defined %}
+
+            {% if overall_score < 50 %}
+              Low Match
+
+            {% elif overall_score <= 65 %}
+              Average
+
+            {% elif overall_score <= 70 %}
+              Good
+
+            {% elif overall_score <= 85 %}
+              Strong
+
+            {% elif overall_score <= 90 %}
+              Excellent
+
+            {% else %}
+              Outstanding
+            {% endif %}
+
+          {% else %}
+
+            Awaiting Result
+
+          {% endif %}
+
+        </span>
+
+      </div>
+
+
+      <p id="recommendation">
+
+        {% if overall_score is defined %}
+
+          {% if overall_score < 50 %}
+
+            Your resume has limited alignment with the selected domain.
+            Improve the resume content, relevant projects, and important
+            required skills to increase your score.
+
+          {% elif overall_score <= 65 %}
+
+            Your resume contains some relevant qualifications, but several
+            important requirements are missing. Focus on improving the
+            missing skills and adding relevant projects to your resume.
+
+          {% elif overall_score <= 70 %}
+
+            Your resume matches many of the selected domain requirements.
+            Improving the missing skills and adding more relevant experience
+            can strengthen your profile.
+
+          {% elif overall_score <= 85 %}
+
+            Your resume aligns well with the selected domain. You possess
+            most of the expected skills and appear to be a strong candidate
+            for this role.
+
+          {% elif overall_score <= 90 %}
+
+            Your resume demonstrates excellent alignment with the selected
+            domain. Your resume content and skills closely match the role
+            requirements.
+
+          {% else %}
+
+            Your resume is exceptionally well aligned with the selected
+            domain. You meet nearly all the expected skills and requirements.
+
+          {% endif %}
+
+
+          {% if missing_skills is defined and missing_skills %}
+
+            Consider improving these missing skills:
+
+            {% for skill in missing_skills %}
+
+              {{ skill }}{% if not loop.last %}, {% else %}.{% endif %}
+
+            {% endfor %}
+
+          {% endif %}
+
+        {% else %}
+
+          Your personalized recommendation will appear here after you
+          select a domain and upload your resume.
+
+        {% endif %}
+
+      </p>
+
+    </article>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <p>
+      © 2026 ResumeScore AI
+    </p>
+
+  </footer>
+
+</body>
+
+</html>
