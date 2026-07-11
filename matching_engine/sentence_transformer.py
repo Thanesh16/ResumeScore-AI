@@ -11,7 +11,10 @@ requirements = pd.read_csv(
 
 
 # ### Particularly slicing the domain description .
-
+model = SentenceTransformer(
+    "sentence-transformers/all-MiniLM-L6-v2",
+    device="cpu"
+)
 # In[95]:
 
 
@@ -27,9 +30,7 @@ def analyze_resume(resume_cleaned, Selected_Domain):
     job_description = selected_row["Description"].iloc[0]
 
     # Your existing resume-score code
-    model = SentenceTransformer(
-        "sentence-transformers/all-MiniLM-L6-v2"
-    )
+
 
     resume_embedding = model.encode(
         resume_cleaned,
