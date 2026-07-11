@@ -1,16 +1,6 @@
-<div align="center">
-
 # 📄 ResumeScore AI
 
-### AI-Powered Resume Screening System using NLP and Sentence Transformers
-
-![Python](https://img.shields.io/badge/Python-3.x-blue)
-![Flask](https://img.shields.io/badge/Flask-Web%20Framework-black)
-![NLP](https://img.shields.io/badge/NLP-Semantic%20Matching-green)
-![Sentence Transformers](https://img.shields.io/badge/Sentence%20Transformers-Embeddings-orange)
-![License](https://img.shields.io/badge/License-MIT-yellow)
-
-</div>
+### AI-Powered Resume Screening System using Flask, NLP & Sentence Transformers
 
 ---
 
@@ -30,6 +20,7 @@ The application extracts text from PDF resumes, cleans the content, generates se
 - Domain-specific job matching
 - Semantic comparison using Sentence Transformers
 - Cosine-similarity-based resume scoring
+- Skill matching and missing-skill identification
 - Flask-based web interface
 
 ---
@@ -85,15 +76,17 @@ Resume PDF
     ↓
 Text Extraction
     ↓
-Text Cleaning
+Text Cleaning and Preprocessing
     ↓
-Sentence Transformer
+Domain Requirement Selection
     ↓
-Resume and Job Embeddings
+Sentence Transformer Embeddings
     ↓
-Cosine Similarity
+Cosine Similarity Calculation
     ↓
-Resume Score
+Skill Matching
+    ↓
+Resume Score and Analysis
 ```
 
 ---
@@ -104,15 +97,34 @@ Resume Score
 ResumeScore-AI/
 │
 ├── app.py
-├── matching_engine/
-├── requirements/
-├── static/
-├── templates/
-├── screenshots/
-├── requirements.txt
 ├── README.md
+├── requirements.txt
 ├── .gitignore
-└── LICENSE
+│
+├── matching_engine/
+│   ├── Requirement.csv
+│   ├── resume_extractor.py
+│   └── sentence_transformer.py
+│
+├── requirements/
+│   ├── Requirement.csv
+│   └── requirements.py
+│
+├── static/
+│   └── style.css
+│
+├── templates/
+│   └── index.html
+│
+├── uploads/
+│
+└── screenshots/
+    ├── home.png
+    ├── upload.png
+    ├── domain.png
+    ├── result.png
+    ├── score.png
+    └── demo.gif
 ```
 
 ---
@@ -131,19 +143,19 @@ git clone https://github.com/Thanesh16/ResumeScore-AI.git
 cd ResumeScore-AI
 ```
 
-### 3. Install the dependencies
+### 3. Install the required dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the application
+### 4. Run the Flask application
 
 ```bash
 python app.py
 ```
 
-### 5. Open the application
+### 5. Open the application in your browser
 
 ```text
 http://127.0.0.1:5000
@@ -153,11 +165,11 @@ http://127.0.0.1:5000
 
 ## 🔮 Future Enhancements
 
-- ATS compatibility score
-- Required-skills matching
-- Missing-skills identification
+- ATS compatibility analysis
+- Improved required-skills matching
 - Resume improvement suggestions
 - Multiple-resume ranking
+- Detailed skill-gap analysis
 - LLM-based resume feedback
 - Cloud deployment
 
