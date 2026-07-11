@@ -31,25 +31,17 @@ The application extracts text from PDF resumes, preprocesses the content, genera
 
 ![Application Demo](screenshots/Demo.gif)
 
----
-
 ### 🏠 Home Page
 
 ![Home Page](screenshots/home.png)
-
----
 
 ### 📂 Domain Selection
 
 ![Domain Selection](screenshots/domain.png)
 
----
-
 ### 📊 Resume Score
 
 ![Resume Score](screenshots/score.png)
-
----
 
 ### 📈 Analysis Result
 
@@ -80,7 +72,7 @@ Resume PDF
 Extract Resume Text
       │
       ▼
-Clean & Preprocess Text
+Clean and Preprocess Text
       │
       ▼
 Select Target Domain
@@ -114,7 +106,6 @@ ResumeScore-AI/
 ├── .gitignore
 │
 ├── matching_engine/
-│   ├── Requirement.csv
 │   ├── resume_extractor.py
 │   └── sentence_transformer.py
 │
@@ -192,9 +183,8 @@ http://127.0.0.1:5000
 
 Aspiring Data Scientist
 
-GitHub: https://github.com/Thanesh16
-
-LinkedIn: https://linkedin.com/in/thanesh006
+[GitHub](https://github.com/Thanesh16)  
+[LinkedIn](https://linkedin.com/in/thanesh006)
 
 ---
 
